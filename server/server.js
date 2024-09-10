@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import collection from './mongo.js';
 import cors from 'cors';
-import contentRoutes from './routes/content.route.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/v1/reports', reportRoutes);
-app.use('/api/v1/contenttrack', contentRoutes);
+
 
 
 app.listen(PORT, () => {

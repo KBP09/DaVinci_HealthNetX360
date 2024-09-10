@@ -1,6 +1,5 @@
 import React,{useEffect, useState} from 'react'
 import BarChart from '@/components/MindMap/BarChart'
-import useTypewriter from '@/hooks/useTypeWriter'
 
 const MindMap = () => {
     const [isActive, setIsActive] = useState('1')
