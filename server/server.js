@@ -2,10 +2,12 @@ import express from 'express';
 import reportRoutes from './routes/report.route.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 
-const collection = require("./mongo.js");
 
-const mongoose = require('mongoose');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
 
 app.post("/", async (req, res) => {
     const { email, password } = req.body;
@@ -44,8 +46,8 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-const app = express();
-const PORT = 3000;
+
+
 
 
 const __filename = fileURLToPath(import.meta.url);
