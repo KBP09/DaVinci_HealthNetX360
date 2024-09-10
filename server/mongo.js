@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect("mongodb+srv://kanakbpandey2023:suytwqo0qaSWhu2H@userdata.9x2ov.mongodb.net/?retryWrites=true&w=majority&appName=Userdata", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect("mongodb+srv://kanakbpandey2023:suytwqo0qaSWhu2H@userdata.9x2ov.mongodb.net/?retryWrites=true&w=majority&appName=Userdata")
     .then(() => {
         console.log("MongoDB connected");
     })
@@ -12,26 +9,26 @@ mongoose.connect("mongodb+srv://kanakbpandey2023:suytwqo0qaSWhu2H@userdata.9x2ov
     });
 
 const userSchema = new mongoose.Schema({
-    firstName : {
+    firstName: {
         type: String,
         required: true
     },
-    lastName : {
+    lastName: {
         type: String,
         required: true
     },
-    email : {
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    password : {
+    password: {
         type: String,
         required: true,
         unique: true
     }
-})
+});
 
-const collection = mongoose.model("Collection",userSchema);
+const Collection = mongoose.model("Collection", userSchema);
 
-module.exports = collection;
+export default Collection;

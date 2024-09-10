@@ -1,43 +1,43 @@
-import React, { useState } from 'react'
-import "../components/Login/Login.css"
+import React, { useState } from 'react';
+import "../components/Login/Login.css";
 import head from "../assets/Login/Heading.png";
-import searchlens from "../assets/Login/searchlens.png"
-import globe from "../assets/Login/globe.png"
-import clock from "../assets/Login/clock.png"
-import google from "../assets/Login/google.png"
-import facebook from "../assets/Login/facebook.png"
-import apple from "../assets/Login/apple.png"
+import searchlens from "../assets/Login/searchlens.png";
+import globe from "../assets/Login/globe.png";
+import clock from "../assets/Login/clock.png";
+import google from "../assets/Login/google.png";
+import facebook from "../assets/Login/facebook.png";
+import apple from "../assets/Login/apple.png";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
-    const[email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    async function submit(e){
+    async function submit(e) {
         e.preventDefault();
-        try{
-            axios.post("http://localhost:3000/",{
+        try {
+            const res = await axios.post("http://localhost:3000/", {
                 email,
                 password
-            }).then(res=>{
-                if(res.data==="exist"){
-                   navigate("/"); 
-                }else if(res.data==="not exist"){
-                    alert("User Does not exist, Please sign up");
-                }
             });
-        }catch(e){
-            console.log(e);
+            
+            if (res.data === "exist") {
+                navigate("/"); 
+            } else if (res.data === "not exist") {
+                alert("User does not exist, please sign up");
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
-    
+
     return (
         <div>
             <div className="KBP_logcontainer">
                 <div className="KBP_container">
-                    <form className="KBP_form">
+                    <form className="KBP_form" onSubmit={submit}>
                         <h2 className="KBP_heading">Welcome Back!</h2>
 
                         <div className="KBP_input-group">
@@ -47,7 +47,8 @@ export default function Login() {
                                 type="email"
                                 name="email"
                                 placeholder="example.email@gmail.com"
-                                onChange={(e)=>setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                         </div>
 
@@ -58,10 +59,11 @@ export default function Login() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter at least 8+ characters"
-                                onChange={(e)=>setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
                             />
                         </div>
-                        <button className="KBP_button" type="submit" onClick={submit}>Login</button>
+                        <button className="KBP_button" type="submit">Login</button>
 
                         <div className="KBP_or">OR</div>
 
@@ -91,7 +93,7 @@ export default function Login() {
                         <p>Find Doctors Near You and Book Appointments</p>
                     </div>
                 </div>
-            </div >
-        </div >
-    )
+            </div>
+        </div>
+    );
 }

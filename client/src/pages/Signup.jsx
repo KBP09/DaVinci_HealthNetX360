@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import "../components/Login/Login.css"
+import React, { useState } from 'react';
+import "../components/Login/Login.css";
 import head from "../assets/Login/Heading.png";
-import searchlens from "../assets/Login/searchlens.png"
-import globe from "../assets/Login/globe.png"
-import clock from "../assets/Login/clock.png"
-import google from "../assets/Login/google.png"
-import facebook from "../assets/Login/facebook.png"
-import apple from "../assets/Login/apple.png"
+import searchlens from "../assets/Login/searchlens.png";
+import globe from "../assets/Login/globe.png";
+import clock from "../assets/Login/clock.png";
+import google from "../assets/Login/google.png";
+import facebook from "../assets/Login/facebook.png";
+import apple from "../assets/Login/apple.png";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios'; // Ensure axios is imported
+
 export default function Signup() {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -16,38 +18,36 @@ export default function Signup() {
         password: '',
         agreedToTerms: false,
     });
-    const navigate = useNavigate();
-    const[firstName,setFirstName] = useState("");
-    const[lastName,setLastName] = useState("");
-    const[email,setEmail] = useState("");
-    const[password,setPassword] = useState("");
 
-    async function submit(e){
+    const navigate = useNavigate();
+
+    async function submit(e) {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:3000/signup", {
-              firstName,
-              lastName,
-              email,
-              password
-            }).then(res=>{
-                if(res.data==="exists"){
-                    alert("User already exists, Please login");
-                }else if(res.data==="not exists"){
-                    navigate("/"); 
-                }
-            })
-          }
-          catch (e) {
-            console.log(e);
-          }
+            const res = await axios.post("http://localhost:3000/signup", formData);
+            if (res.data === "exists") {
+                alert("User already exists, Please login");
+            } else if (res.data === "not exists") {
+                navigate("/"); 
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
 
     return (
         <div>
             <div className="KBP_logcontainer">
                 <div className="KBP_container">
-                    <form className="KBP_form">
+                    <form className="KBP_form" onSubmit={submit}>
                         <h2 className="KBP_heading">Begin your journey</h2>
 
                         <div className="KBP_input-group1">
@@ -58,7 +58,8 @@ export default function Signup() {
                                     type="text"
                                     name="firstName"
                                     placeholder="Input first name"
-                                    onChange={(e)=>{setFirstName(e.target.value)}}
+                                    value={formData.firstName}
+                                    onChange={handleChange}
                                 />
                             </div>
                             <div>
@@ -68,7 +69,8 @@ export default function Signup() {
                                     type="text"
                                     name="lastName"
                                     placeholder="Input last name"
-                                    onChange={(e)=>{setLastName(e.target.value)}}
+                                    value={formData.lastName}
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -80,7 +82,8 @@ export default function Signup() {
                                 type="email"
                                 name="email"
                                 placeholder="example.email@gmail.com"
-                                onChange={(e)=>{setEmail(e.target.value)}}
+                                value={formData.email}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -91,11 +94,12 @@ export default function Signup() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter at least 8+ characters"
-                                onChange={(e)=>{setPassword(e.target.value)}}
+                                value={formData.password}
+                                onChange={handleChange}
                             />
                         </div>
 
-                        <button className="KBP_button" type="submit" onClick={submit}>Register</button>
+                        <button className="KBP_button" type="submit">Register</button>
 
                         <div className="KBP_or">OR</div>
 
@@ -117,15 +121,15 @@ export default function Signup() {
                         <p>Find Doctors Near You and Book Appointments</p>
                     </div>
                     <div>
-                        <img src={clock} alt="lens" />
+                        <img src={clock} alt="clock" />
                         <p>Find Doctors Near You and Book Appointments</p>
                     </div>
                     <div>
-                        <img src={globe} alt="lens" />
+                        <img src={globe} alt="globe" />
                         <p>Find Doctors Near You and Book Appointments</p>
                     </div>
                 </div>
-            </div >
-        </div >
-    )
+            </div>
+        </div>
+    );
 }
