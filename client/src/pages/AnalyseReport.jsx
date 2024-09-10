@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import FileUpload from '@/components/Reports/FileUpload';
 import RadioButtons from '@/components/Reports/RadioButtons';
-import BasicBars from '@/components/Reports/Graph';
+import HorizontalBars from '@/components/Reports/Graph';
 import BasicTable from '@/components/Reports/Table';
 
 const AnalyseReport = () => {
     const [showInput, setShowInput] = useState(true);
     const [selectedValue, setSelectedValue] = useState('');
     const [file, setFile] = useState(null);
+    const [dataset, setDataset] = useState([
+        { disease: 'Covid-19', probability: 0.8 },
+        { disease: 'Pneumonia', probability: 0.5 },
+        { disease: 'Bronchitis', probability: 0.3 },
+        { disease: 'Tuberculosis', probability: 0.1 },
+    ]);
+    const [data, setData] = useState([]);
 
     const handleFileChange = (selectedFile) => {
         setFile(selectedFile);
@@ -15,18 +22,33 @@ const AnalyseReport = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setShowInput(false);
-
+        
         const formData = new FormData();
         formData.append('file', file); 
 
-        fetch('http://localhost:3000/api/v1/reports/predict_chest', {
+        let path = '';
+        if (selectedValue === 'value-2') {
+            path = 'predict_chest';
+        } else if (selectedValue === 'value-4') {
+            path = 'predict_tumor';
+        } else if (selectedValue === 'value-3') {
+            path = 'predict_fracture';
+        }
+
+        fetch(`http://localhost:3000/api/v1/reports/${path}`, {
             method: 'POST',
             body: formData,
         })
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            setData(data);
+            const transformedData = Object.keys(data).map(disease => ({
+                disease: disease.replace(/_/g, ' '), // Replace underscores with spaces
+                probability: Number(data[disease]) // Ensure the probability is a number
+            }));
+            setDataset(transformedData);
+            setShowInput(false);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -56,7 +78,7 @@ const AnalyseReport = () => {
                 <>
                     <div className="w-full flex pt-8 h-[500px] gap-4">
                         <div className="w-1/2 border-2 h-full flex justify-center items-center rounded-lg">
-                            <BasicBars />
+                            <HorizontalBars dataset={dataset} />
                         </div>
                         <div className="w-1/2 border-2 h-full rounded-lg p-4">
                             <h4 className="text-3xl text-center">Disease-Probability</h4>

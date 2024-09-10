@@ -61,7 +61,7 @@ const predictChest = async (imagePath) => {
         });
 
         const data = await response.json();
-        return data.result;
+        return data;
     } catch (error) {
         return error.message;
     }
@@ -81,7 +81,7 @@ const predictTumor = async (imagePath) => {
         });
 
         const data = await response.json();
-        return data.result;
+        return data;
     } catch (error) {
         return error.message;
     }
@@ -101,7 +101,7 @@ const predictFracture = async (imagePath) => {
         });
 
         const data = await response.json();
-        return data.result;
+        return data;
     } catch (error) {
         return error.message;
     }

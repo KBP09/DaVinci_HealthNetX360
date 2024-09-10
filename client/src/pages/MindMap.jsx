@@ -1,10 +1,11 @@
 import React,{useEffect, useState} from 'react'
 import BarChart from '@/components/MindMap/BarChart'
+import AnimatedWorm from '@/components/shared/AnimatedWorm'
 
 const MindMap = () => {
     const [isActive, setIsActive] = useState('1')
     const [data, setData] = useState({})
-
+    const [show, setShow] = useState(true)
     const [summary, setSummary] = useState('');
     const [estimatedTimeSpent, setEstimatedTimeSpent] = useState('');
     const [mentalHealthRating, setMentalHealthRating] = useState(0);
@@ -27,6 +28,8 @@ const MindMap = () => {
             setProductivityRating(parseInt(res.productivityRating.trim(), 10));
             setCreativityRating(parseInt(res.creativityRating.trim(), 10));
             setDataset(JSON.parse(res.dataset.trim()));
+            setShow(false);
+            
         } catch (error) {
             console.error('Error:', error);
         }
@@ -50,7 +53,8 @@ const MindMap = () => {
     }
 
     return (
-        <section className='mt-[70px] mx-32 flex flex-col gap-6'>
+        <section className={'mt-[70px] mx-32 flex flex-col gap-6'}>
+            {show && <AnimatedWorm />}
             <div className='w-full pt-8 flex flex-col gap-3'>
                 <h2 className='text-4xl font-semibold'>Understand Your Digital Consumption</h2>
                 <p className='text-slate-400'>Our tool helps you analyze the type of content you engage with and its impact on your well-being</p>
