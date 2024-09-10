@@ -3,11 +3,11 @@ import reportRoutes from './routes/report.route.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
-
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(cors());
 
 app.post("/", async (req, res) => {
     const { email, password } = req.body;
