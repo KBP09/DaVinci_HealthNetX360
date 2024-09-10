@@ -242,7 +242,7 @@ const LandingPage = () => {
       className={`transition-opacity duration-2000 ${showContent ? "opacity-100" : "opacity-0"
         }`}
     >
-      <header className='mt-16 flex justify-between items-center mx-5 flex-wrap'>
+      <header className=' flex justify-between items-center mx-5 flex-wrap'>
         <img src={Logo} width={150} className='cursor-pointer animate-pulse' />
 
         <nav className='flex space-x-4 items-center flex-wrap'>
