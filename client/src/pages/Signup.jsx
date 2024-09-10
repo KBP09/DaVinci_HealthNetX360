@@ -8,8 +8,7 @@ import google from "../assets/Login/google.png"
 import facebook from "../assets/Login/facebook.png"
 import apple from "../assets/Login/apple.png"
 import { useNavigate, Link } from "react-router-dom";
-
-export default function Login() {
+export default function Signup() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -37,7 +36,32 @@ export default function Login() {
             <div className="KBP_logcontainer">
                 <div className="KBP_container">
                     <form className="KBP_form" onSubmit={handleSubmit}>
-                        <h2 className="KBP_heading">Welcome Back!</h2>
+                        <h2 className="KBP_heading">Begin your journey</h2>
+
+                        <div className="KBP_input-group1">
+                            <div>
+                                <h1>First Name</h1>
+                                <input
+                                    className="KBP_input"
+                                    type="text"
+                                    name="firstName"
+                                    placeholder="Input first name"
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div>
+                                <h1>Last Name</h1>
+                                <input
+                                    className="KBP_input"
+                                    type="text"
+                                    name="lastName"
+                                    placeholder="Input last name"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
 
                         <div className="KBP_input-group">
                             <h1>Email</h1>
@@ -62,7 +86,23 @@ export default function Login() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <button className="KBP_button" type="submit">Login</button>
+
+                        <div className="KBP_checkbox-group">
+                            <input
+                                className="KBP_checkbox"
+                                type="checkbox"
+                                name="agreedToTerms"
+                                checked={formData.agreedToTerms}
+                                onChange={handleChange}
+                            />
+                            <span className="KBP_terms">
+                                By signing up, I agree with the{' '}
+                                <a href="#terms" className="KBP_link">Terms of Use</a> &{' '}
+                                <a href="#privacy" className="KBP_link">Privacy Policy</a>
+                            </span>
+                        </div>
+
+                        <button className="KBP_button" type="submit">Register</button>
 
                         <div className="KBP_or">OR</div>
 
@@ -73,7 +113,7 @@ export default function Login() {
                         </div>
 
                         <div className="KBP_login-link">
-                            New user? <Link to="/signup" className='KBP_link'>Sign Up</Link>
+                            Returning user? <Link to="/login" className="KBP_link">Login</Link>
                         </div>
                     </form>
                 </div>

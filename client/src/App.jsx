@@ -35,6 +35,7 @@ import LandingPage from './pages/LandingPage';
 import AnalyseReport from './pages/AnalyseReport';
 import MentalHealthPage from './pages/MentalHealthPage';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 function App() {
   return (
     <Router>
@@ -50,6 +51,7 @@ function App() {
         <Route path='/reportanalysis' element={<AnalyseReport />} />
         <Route path='/mental-health-exercises' element={<MentalHealthPage />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </Router>
   )
