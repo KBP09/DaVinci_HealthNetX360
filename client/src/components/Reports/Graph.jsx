@@ -15,13 +15,15 @@ const chartSetting = {
 
 const valueFormatter = (value) => `${(value * 100).toFixed(2)}%`;
 
-export default function HorizontalBars({ dataset }) {
+export default function HorizontalBars({dataset}) {
     if (!dataset || dataset.length === 0) {
         console.error('Dataset is missing or empty');
         return <p>No data available</p>;
     }
+
     return (
         <BarChart
+            dataset={dataset}
             yAxis={[{ scaleType: 'band', dataKey: 'disease' }]}
             series={[{ dataKey: 'probability', label: 'Disease Probability', valueFormatter }]}
             layout="horizontal"

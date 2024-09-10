@@ -42,9 +42,8 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path='/landing' element={<LandingPage />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/dashboard' element={<div>Dashboard</div>} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/dashboard' element={<Home />} />
         <Route path='/about' element={<div>About Us</div>} />
         <Route path='/contact' element={<div>Contact Us</div>} />
         <Route path='/track-content' element={<MindMap />} />
