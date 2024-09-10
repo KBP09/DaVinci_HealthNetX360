@@ -18,7 +18,7 @@ export default function Login() {
     async function submit(e){
         e.preventDefault();
         try{
-            axios.post("http://localhost:8000/",{
+            axios.post("http://localhost:3000/",{
                 email,
                 password
             }).then(res=>{
