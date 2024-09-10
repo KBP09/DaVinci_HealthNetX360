@@ -23,7 +23,7 @@ export default function Signup() {
 
     async function submit(e) {
         e.preventDefault();
-        try {
+        try{
             const res = await axios.post("http://localhost:3000/signup", formData);
             if (res.data === "exists") {
                 alert("User already exists, Please login");
