@@ -19,11 +19,11 @@ const Home = () => {
             <section className='w-[70%] h-full flex gap-4'>
                 <div className='w-1/3 neuro-2 h-full'>
                     <FeaturesList />
-
+                   
                 </div>
                 <div className='h-full flex flex-col gap-4 w-2/3 pb-4'>
                     <div className='h-1/2 neuro-2 w-full'>
-                        <AppointList />
+                    <AppointList />
                     </div>
                     <div className='h-1/2 neuro-2 w-full'>
                         <MedicineAlert />
