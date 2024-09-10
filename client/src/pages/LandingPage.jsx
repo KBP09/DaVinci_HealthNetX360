@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Info } from "lucide-react";
+import { ArrowUpRight, Info, Video } from "lucide-react";
 import Logo from "../assets/LandingPage/LTC Logo.svg";
 import PP from "../assets/sharedAssets/demo_pfp.png";
 
@@ -95,15 +95,15 @@ const TelehealthCards = () => {
 
             <motion.span
               className='absolute top-4 left-4 bg-opacity-80 text-palette-skyBlue px-4 py-2 rounded-full text-sm font-semibold'
-              initial={{ opacity: 0, x: -100, y: 320 }}
-              animate={{ opacity: 1, x: -25, y: 320 }}
+              initial={{ opacity: 0, x: -100, y: 275 }}
+              animate={{ opacity: 1, x: -25, y: 275 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
               <div className='cursor-pointer'>
-                {["24/7", "User-Friendly"].map((tag, index) => (
+                {["24/7 availablity", "Secure", "User-Friendly"].map((tag, index) => (
                   <motion.span
                     key={index}
-                    className='bg-orange-400 text-white px-3 mx-1 py-1 rounded-full text-sm font-medium inline-block'
+                    className='bg-orange-500 text-white px-3 m-1 py-1 rounded-full text-sm font-medium inline-block'
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -112,14 +112,16 @@ const TelehealthCards = () => {
                 ))}
               </div>
             </motion.span>
+            <Video color="white" size={40} className="bg-white bg-opacity-80 p-2 rounded-full absolute top-5 left-3 animate-bounce" />
             <motion.span
-              className='absolute top-4 left-4 bg-white bg-opacity-80 text-palette-skyBlue px-4 py-2 rounded-full text-sm font-semibold shadow-md animate-pulse'
+              className='absolute top-4 left-4 bg-white bg-opacity-80 text-black text-opacity-60 px-4 py-2 rounded-full text-sm font-semibold shadow-md'
               initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 50 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
               Virtual Consultations
             </motion.span>
+
           </div>
         </motion.div>
 
@@ -138,20 +140,14 @@ const TelehealthCards = () => {
               className='w-full h-96 object-cover'
             />
             <motion.span
-              className='absolute top-4 left-4 bg-white bg-opacity-80 text-palette-skyBlue px-4 py-2 rounded-full text-sm font-semibold shadow-md animate-pulse'
+              className='absolute top-4 left-4 bg-white bg-opacity-80 text-black text-opacity-60 px-4 py-2 rounded-full text-sm font-semibold shadow-md'
               initial={{ opacity: 0, x: -20, y: 320 }}
               animate={{ opacity: 1, x: 100, y: 320 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
               Telemedicine
             </motion.span>
-            <motion.span
-              className='absolute top-4 left-4 animate-pulse'
-              initial={{ opacity: 0, x: -20, y: 330 }}
-              animate={{ opacity: 1, x: 225, y: 330 }}
-            >
-              <Info color='white' size={20} />
-            </motion.span>
+            <Info color='white' size={20} className='absolute bottom-5 right-14' />
           </div>
         </motion.div>
         {/* Card 3 */}
@@ -217,8 +213,8 @@ const TelehealthCards = () => {
             {["in", "f", "X"].map((icon, index) => (
               <motion.div
                 key={icon}
-                className='w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-sm'
-                whileHover={{ scale: 1.1, backgroundColor: "#E5E7EB" }}
+                className='w-8 h-8 bg-palette-oceanBlue rounded-full flex items-center justify-center text-white text-sm cursor-pointer'
+                whileHover={{ scale: 1.1 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -243,11 +239,10 @@ const LandingPage = () => {
 
   return (
     <div
-      className={`transition-opacity duration-2000 ${
-        showContent ? "opacity-100" : "opacity-0"
-      }`}
+      className={`transition-opacity duration-2000 ${showContent ? "opacity-100" : "opacity-0"
+        }`}
     >
-      <header className='flex justify-between items-center mx-5 flex-wrap'>
+      <header className='mt-16 flex justify-between items-center mx-5 flex-wrap'>
         <img src={Logo} width={150} className='cursor-pointer animate-pulse' />
 
         <nav className='flex space-x-4 items-center flex-wrap'>
@@ -292,22 +287,23 @@ const LandingPage = () => {
             <div className='w-16 h-16 border border-gray-300 rounded-full p-1 transition-transform duration-300 hover:scale-110'>
               <img src={PP} alt='Doc' className='w-full h-full object-cover' />
             </div>
-            Choose your <br /> doctor
+            Choose your<br /> own doctor
           </div>
           <div className='text-4xl tracking-widest'>
             <h1 className='my-1'>
               Take
-              <span className='bg-palette-oceanBlue px-2 py-1 rounded-xl inline-block transition-transform duration-300 hover:scale-105'>
+              <span className='bg-palette-oceanBlue px-2 py-1 rounded-xl inline-block transition-transform duration-300 hover:scale-105 hover:bg-palette-deepNavy text-white'>
                 control
               </span>
             </h1>
             <h1 className='pl-10'>
               of your
-              <span className='bg-palette-oceanBlue p-1 rounded-xl inline-block transition-transform duration-300 hover:scale-105'>
+              <span className='bg-palette-oceanBlue p-1 rounded-xl inline-block transition-transform duration-300 hover:scale-105 hover:bg-palette-deepNavy text-white'>
                 health.
               </span>
             </h1>
           </div>
+
           <div>
             <motion.div
               className='flex items-start text-right cursor-pointer'
@@ -335,6 +331,22 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
+        <section className="flex space-x-4 justify-center m-5">
+          <motion.button
+            className="bg-palette-oceanBlue text-white px-6 py-2 rounded-full hover:bg-palette-deepNavy transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link to='/login'> Get started </Link>
+          </motion.button>
+          <motion.button
+            className="border border-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Learn more
+          </motion.button>
+        </section>
         <section className='flex '>
           <div className='flex flex-col space-y-4 p-4'>
             <StatisticsCard percentage={85} label='Successful diagnosis' />
@@ -342,6 +354,7 @@ const LandingPage = () => {
           </div>
           <TelehealthCards />
         </section>
+
       </main>
     </div>
   );
