@@ -36,12 +36,13 @@ import AnalyseReport from './pages/AnalyseReport';
 import MentalHealthPage from './pages/MentalHealthPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import LifestyleRecommendations from './pages/LifestyleRecommendation';
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path='/landing' element={<LandingPage/>} />
+        <Route path='/landing' element={<LandingPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/dashboard' element={<div>Dashboard</div>} />
         <Route path='/about' element={<div>About Us</div>} />
@@ -52,6 +53,7 @@ function App() {
         <Route path='/mental-health-exercises' element={<MentalHealthPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/lifestyle-recommendations' element={<LifestyleRecommendations />} />
       </Routes>
     </Router>
   )
