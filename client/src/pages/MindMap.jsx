@@ -1,8 +1,43 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import BarChart from '@/components/MindMap/BarChart'
+import useTypewriter from '@/hooks/useTypeWriter'
 
 const MindMap = () => {
     const [isActive, setIsActive] = useState('1')
+    const [data, setData] = useState({})
+
+    const [summary, setSummary] = useState('');
+    const [estimatedTimeSpent, setEstimatedTimeSpent] = useState('');
+    const [mentalHealthRating, setMentalHealthRating] = useState(0);
+    const [productivityRating, setProductivityRating] = useState(0);
+    const [creativityRating, setCreativityRating] = useState(0);
+    const [dataset, setDataset] = useState([]);
+
+
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('https://mentalextensionbackend.onrender.com/analyzeRecentData');
+            const res= await response.json();
+            console.log(res);
+            console.log('Data:', res);
+            setData(res);
+            setSummary(res.summary.trim());
+            setEstimatedTimeSpent(res.estimatedTimeSpent.trim());
+            setMentalHealthRating(parseInt(res.mentalHealthRating.trim(), 10));
+            setProductivityRating(parseInt(res.productivityRating.trim(), 10));
+            setCreativityRating(parseInt(res.creativityRating.trim(), 10));
+            setDataset(JSON.parse(res.dataset.trim()));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    
 
     const activeTab = (e) => {
         const tabs = document.querySelectorAll('h3')
@@ -15,8 +50,6 @@ const MindMap = () => {
         setIsActive(e.target.id)
     }
 
-    const [data, setData] = useState([])
-
     return (
         <section className='mt-[70px] mx-32 flex flex-col gap-6'>
             <div className='w-full pt-8 flex flex-col gap-3'>
@@ -28,35 +61,31 @@ const MindMap = () => {
                     <div className='w-full flex justify-around'>
                         <div className='w-[250px] h-[120px] flex flex-col gap-2 p-4 pl-6 font-semibold  bg-zinc-200 rounded-lg'>
                             <h4>Total Time Spent</h4>
-                            <span className='font-bold text-2xl'>9h 15m</span>
+                            <span className='font-bold text-2xl'>{estimatedTimeSpent}</span>
                         </div>
                         <div className='w-[250px] h-[120px] flex flex-col gap-2 p-4 pl-6 font-semibold bg-zinc-200 rounded-lg'>
                             <h4>Mental Health Impact</h4>
-                            <span className='font-bold text-2xl'>2.3/5</span>
+                            <span className='font-bold text-2xl'>{mentalHealthRating}/5</span>
                         </div>
                         <div className='w-[250px] h-[120px] flex flex-col gap-2 p-4 pl-6 font-semibold bg-zinc-200 rounded-lg'>
                             <h4>Productivity</h4>
-                            <span className='font-bold text-2xl'>2.5/5</span>
+                            <span className='font-bold text-2xl'>{productivityRating}/5</span>
                         </div>
                         <div className='w-[250px] h-[120px] flex flex-col gap-2 p-4 pl-6 font-semibold bg-zinc-200 rounded-lg'>
                             <h4>Creativity</h4>
-                            <span className='font-bold text-2xl'>3.1/5</span>
+                            <span className='font-bold text-2xl'>{creativityRating}/5</span>
                         </div>
                     </div>
                     <div className='w-full h-[650px] flex items-center justify-center  rounded-lg border-2 p-6 pt-0 mt-6 border-slate-300'>
                         <div className='w-full h-[500px] flex flex-col gap-6'>
                             <span className='w-full'><h3 className='text-2xl'>Your Content Consumption</h3></span>
-                            <BarChart />
+                            <BarChart dataset={dataset} />
                         </div>
                     </div>
-                    <div className='w-full flex flex-col gap-6'>
-                        <h4 className='text-2xl font-semibold'>Top Websites</h4>
-                        <div className='grid grid-cols-5 grid-rows-1 gap-4'>
-                            <div className='w-[220px] h-[270px] p-2 border-0 rounded-lg'><img className='w-[200px] h-[200px] bg-slate-200 rounded-lg p-2' src='.\src\assets\MindMap\yt.png'></img></div>
-                            <div className='w-[220px] h-[270px] p-2 border-0 rounded-lg'><img className='w-[200px] h-[200px] bg-slate-200 rounded-lg p-2' src='.\src\assets\MindMap\yt.png'></img></div>
-                            <div className='w-[220px] h-[270px] p-2 border-0 rounded-lg'><img className='w-[200px] h-[200px] bg-slate-200 rounded-lg p-2' src='.\src\assets\MindMap\yt.png'></img></div>
-                            <div className='w-[220px] h-[270px] p-2 border-0 rounded-lg'><img className='w-[200px] h-[200px] bg-slate-200 rounded-lg p-2' src='.\src\assets\MindMap\yt.png'></img></div>
-                            <div className='w-[220px] h-[270px] p-2 border-0 rounded-lg'><img className='w-[200px] h-[200px] bg-slate-200 rounded-lg p-2' src='.\src\assets\MindMap\yt.png'></img></div>
+                    <div className='w-full flex flex-col gap-6 mt-6'>
+                        <h4 className='text-2xl font-semibold'>Summary</h4>
+                        <div className='w-full h-[300px] mb-[200px] rounded-lg border-2'>
+                            <p className='p-4 text-lg'>{summary}</p>
                         </div>
                     </div>
                 </div>
