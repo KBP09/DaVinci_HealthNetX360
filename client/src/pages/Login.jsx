@@ -8,35 +8,36 @@ import google from "../assets/Login/google.png"
 import facebook from "../assets/Login/facebook.png"
 import apple from "../assets/Login/apple.png"
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        agreedToTerms: false,
-    });
+    const[email,setEmail] = useState("");
+    const[password,setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value,
-        });
-    };
-
-    const handleSubmit = (e) => {
+    async function submit(e){
         e.preventDefault();
-        // Form submit logic
-        console.log('Form data:', formData);
-    };
-
+        try{
+            axios.post("http://localhost:8000/",{
+                email,
+                password
+            }).then(res=>{
+                if(res.data==="exist"){
+                   navigate("/"); 
+                }else if(res.data==="not exist"){
+                    alert("User Does not exist, Please sign up");
+                }
+            });
+        }catch(e){
+            console.log(e);
+        }
+    }
+    
     return (
         <div>
             <div className="KBP_logcontainer">
                 <div className="KBP_container">
-                    <form className="KBP_form" onSubmit={handleSubmit}>
+                    <form className="KBP_form">
                         <h2 className="KBP_heading">Welcome Back!</h2>
 
                         <div className="KBP_input-group">
@@ -46,8 +47,7 @@ export default function Login() {
                                 type="email"
                                 name="email"
                                 placeholder="example.email@gmail.com"
-                                value={formData.email}
-                                onChange={handleChange}
+                                onChange={(e)=>setEmail(e.target.value)}
                             />
                         </div>
 
@@ -58,11 +58,10 @@ export default function Login() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter at least 8+ characters"
-                                value={formData.password}
-                                onChange={handleChange}
+                                onChange={(e)=>setPassword(e.target.value)}
                             />
                         </div>
-                        <button className="KBP_button" type="submit">Login</button>
+                        <button className="KBP_button" type="submit" onClick={submit}>Login</button>
 
                         <div className="KBP_or">OR</div>
 
