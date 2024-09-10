@@ -14,6 +14,30 @@ const Home = () => {
 
         return () => clearTimeout(timeout);
     }, []);
+
+    function getCurrentTime() {
+        const date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+      
+        // Convert 24-hour format to 12-hour format
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        
+        // Add leading zero to minutes if necessary
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+      
+        const formattedTime = `${hours < 10 ? '0' + hours : hours}:${minutes} ${ampm}`;
+        return formattedTime;
+      }
+
+      function getFormattedDate() {
+        const date = new Date();
+        const options = { month: 'long', day: '2-digit' };
+        return date.toLocaleDateString('en-US', options);
+      }
+
     return (
         <section className='pt-[75px] flex h-full p-3 gap-4 overflow-hidden'>
             <section className='w-[70%] h-full flex gap-4'>
@@ -38,9 +62,9 @@ const Home = () => {
                         </span>
                         <span className='flex flex-col'>
                             <p className='text-xl font-semibold'>Running</p>
-                            <p className='text-sm text-zinc-400'>Activity for September 08</p>
+                            <p className='text-sm w-[160px] text-zinc-400'>Activity for {getFormattedDate()}</p>
                         </span>
-                        <p className='self-start ml-20 font-semibold'>06:32 AM</p>
+                        <p className='self-start ml-20 text-sm font-semibold'>{getCurrentTime()}</p>
                     </div>
                     <div className="flex justify-between items-center bg-gray-100 rounded-full p-1 w-full max-w-4xl">
                         <div className="bg-white h-10 w-full rounded-full relative">
