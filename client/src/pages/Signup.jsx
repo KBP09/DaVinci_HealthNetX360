@@ -16,26 +16,38 @@ export default function Signup() {
         password: '',
         agreedToTerms: false,
     });
+    const navigate = useNavigate();
+    const[firstName,setFirstName] = useState("");
+    const[lastName,setLastName] = useState("");
+    const[email,setEmail] = useState("");
+    const[password,setPassword] = useState("");
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value,
-        });
-    };
-
-    const handleSubmit = (e) => {
+    async function submit(e){
         e.preventDefault();
-        // Form submit logic
-        console.log('Form data:', formData);
-    };
+        try {
+            await axios.post("http://localhost:8000/signup", {
+              firstName,
+              lastName,
+              email,
+              password
+            }).then(res=>{
+                if(res.data==="exists"){
+                    alert("User already exists, Please login");
+                }else if(res.data==="not exists"){
+                    navigate("/"); 
+                }
+            })
+          }
+          catch (e) {
+            console.log(e);
+          }
+    }
 
     return (
         <div>
             <div className="KBP_logcontainer">
                 <div className="KBP_container">
-                    <form className="KBP_form" onSubmit={handleSubmit}>
+                    <form className="KBP_form">
                         <h2 className="KBP_heading">Begin your journey</h2>
 
                         <div className="KBP_input-group1">
@@ -46,8 +58,7 @@ export default function Signup() {
                                     type="text"
                                     name="firstName"
                                     placeholder="Input first name"
-                                    value={formData.firstName}
-                                    onChange={handleChange}
+                                    onChange={(e)=>{setFirstName(e.target.value)}}
                                 />
                             </div>
                             <div>
@@ -57,8 +68,7 @@ export default function Signup() {
                                     type="text"
                                     name="lastName"
                                     placeholder="Input last name"
-                                    value={formData.lastName}
-                                    onChange={handleChange}
+                                    onChange={(e)=>{setLastName(e.target.value)}}
                                 />
                             </div>
                         </div>
@@ -70,8 +80,7 @@ export default function Signup() {
                                 type="email"
                                 name="email"
                                 placeholder="example.email@gmail.com"
-                                value={formData.email}
-                                onChange={handleChange}
+                                onChange={(e)=>{setEmail(e.target.value)}}
                             />
                         </div>
 
@@ -82,27 +91,11 @@ export default function Signup() {
                                 type="password"
                                 name="password"
                                 placeholder="Enter at least 8+ characters"
-                                value={formData.password}
-                                onChange={handleChange}
+                                onChange={(e)=>{setPassword(e.target.value)}}
                             />
                         </div>
 
-                        <div className="KBP_checkbox-group">
-                            <input
-                                className="KBP_checkbox"
-                                type="checkbox"
-                                name="agreedToTerms"
-                                checked={formData.agreedToTerms}
-                                onChange={handleChange}
-                            />
-                            <span className="KBP_terms">
-                                By signing up, I agree with the{' '}
-                                <a href="#terms" className="KBP_link">Terms of Use</a> &{' '}
-                                <a href="#privacy" className="KBP_link">Privacy Policy</a>
-                            </span>
-                        </div>
-
-                        <button className="KBP_button" type="submit">Register</button>
+                        <button className="KBP_button" type="submit" onClick={submit}>Register</button>
 
                         <div className="KBP_or">OR</div>
 
