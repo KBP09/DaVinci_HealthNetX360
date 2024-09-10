@@ -11,10 +11,10 @@ export default function Appointment() {
 
   const doctors = [
     {
-      name: 'Kartik Pokemon',
-      specialty: 'Mood Swings',
+      name: 'Dr ABC',
+      specialty: 'Orthopaedic Surgeon',
       experience: '8 years exp',
-      hospital: 'Apollo Cradle Moti Nagar',
+      hospital: 'ABC Hospital',
       languages: 'English, हिंदी',
       degrees: 'MBBS, MS, DNB',
       availability: 'MON, WED, THU, SAT (11:00 AM–04:00 PM)'
@@ -23,7 +23,7 @@ export default function Appointment() {
       name: 'Dr Kanak Bhavneshwar Pandey',
       specialty: 'Orthopaedic Surgeon',
       experience: '100+ years exp',
-      hospital: 'Apollo Spectra Hospitals Chirag Enclave',
+      hospital: 'AIIMS',
       languages: 'English, हिंदी',
       degrees: 'MBBS, MS',
       availability: 'SUN | TUE, THU, SAT (11:00 AM–02:00 PM | 12:00 PM–04:00 PM)'
