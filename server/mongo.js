@@ -29,6 +29,24 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const Collection = mongoose.model("Collection", userSchema);
+const appointmentSchema = new mongoose.Schema({
+    doctorName: {
+        type: String,
+        required: true
+    },
+    appointmentDay: {
+        type: String,
+        required: true
+    },
+    appointmentTime: {
+        type: String,
+        required: true
+    }
+});
 
-export default Collection;
+const Collection = mongoose.model("Collection", userSchema);
+const Appointment = mongoose.model("Appointment",appointmentSchema);
+export default {
+    Collection,
+    Appointment
+};

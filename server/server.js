@@ -3,9 +3,11 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
-import collection from './mongo.js';
 import cors from 'cors';
 import reportRoutes from './routes/report.route.js';
+import Models from './mongo.js';
+
+const { Collection, Appointment } = Models;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,7 +33,7 @@ app.post("/", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const check = await collection.findOne({ email: email });
+        const check = await Collection.findOne({ email: email });
         if (check) {
             res.json("exist");
         } else {
@@ -52,11 +54,11 @@ app.post("/signup", async (req, res) => {
         password: password,
     };
     try {
-        const check = await collection.findOne({ email: email });
+        const check = await Collection.findOne({ email: email });
         if (check) {
             res.json("exist");
         } else {
-            await collection.insertMany([data]);
+            await Collection.insertMany([data]);
             res.json("not exists");
         }
     } catch (e) {
@@ -64,7 +66,35 @@ app.post("/signup", async (req, res) => {
         res.status(500).json("error");
     }
 });
-
+app.post("/appointment", async (req, res) => {
+    const { doctorName, appointmentDay, appointmentTime } = req.body;
+    const data = {
+        doctorName : doctorName,
+        appointmentDay : appointmentDay,
+        appointmentTime: appointmentTime
+    };
+    try {
+        const check = await Appointment.findOne({ doctorName: doctorName });
+        if (check) {
+            res.json("no");
+        } else {
+            await Appointment.insertMany([data]);
+            res.json("done");
+        }
+    } catch (e) {
+        console.error(e);
+        res.status(500).json("error");
+    }
+});
+app.get('/appointments', async (req, res) => {
+    try {
+        const appointments = await Appointment.find({});
+        res.json(appointments);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json("error");
+    }
+});
 // Serve static files
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

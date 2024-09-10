@@ -1,34 +1,56 @@
-import React, { useState } from 'react'
-import "../components/Appointment/appointment.css"
-import searchlens from "../assets/Appointment/searchlens.png"
-import location from "../assets/Appointment/location.png"
-import ladka from "../assets/Appointment/ladka.png"
-import sort from "../assets/Appointment/sort.png"
+import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
+import "../components/Appointment/appointment.css";
+import searchlens from "../assets/Appointment/searchlens.png";
+import location from "../assets/Appointment/location.png";
+import ladka from "../assets/Appointment/ladka.png";
+import { useNavigate } from 'react-router-dom';
 
 export default function Appointment() {
   const [hospital, setHospital] = useState('');
   const [sortOrder, setSortOrder] = useState('');
+  const navigate = useNavigate();
 
-  const doctors = [
-    {
-      name: 'Dr ABC',
-      specialty: 'Orthopaedic Surgeon',
-      experience: '8 years exp',
-      hospital: 'ABC Hospital',
-      languages: 'English, हिंदी',
-      degrees: 'MBBS, MS, DNB',
-      availability: 'MON, WED, THU, SAT (11:00 AM–04:00 PM)'
-    },
-    {
-      name: 'Dr Kanak Bhavneshwar Pandey',
-      specialty: 'Orthopaedic Surgeon',
-      experience: '100+ years exp',
-      hospital: 'AIIMS',
-      languages: 'English, हिंदी',
-      degrees: 'MBBS, MS',
-      availability: 'SUN | TUE, THU, SAT (11:00 AM–02:00 PM | 12:00 PM–04:00 PM)'
+  const doctor1 = {
+    name: 'Dr Kanak B Pandey',
+    specialty: 'Orthopaedic Surgeon',
+    experience: '8 years exp',
+    hospital: 'ABC Hospital',
+    languages: 'English, हिंदी',
+    degrees: 'MBBS, MS, DNB',
+    day: 'Tuesday',
+    time: '9:00 am'
+  };
+  const doctor2 = {
+    name: 'Dr Kanak Bhavneshwar Pandey',
+    specialty: 'Orthopaedic Surgeon',
+    experience: '100+ years exp',
+    hospital: 'AIIMS',
+    languages: 'English, हिंदी',
+    degrees: 'MBBS, MS',
+    day: 'Tuesday',
+    time: '9:00 am'
+  };
+
+  const bookAppointment = async (doctor) => {
+    try {
+      // Sending data to the server using axios
+      const res = await axios.post('http://localhost:3000/appointment', {
+        doctorName: doctor.name,
+        appointmentDay: doctor.day,
+        appointmentTime: doctor.time
+      });
+
+      if (res.data === "done") {
+        alert('Appointment booked successfully!');
+        navigate("/");
+      }
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+      alert('Failed to book appointment. Please try again.');
     }
-  ];
+  };
+
   return (
     <div>
       <div className="KBP_searchP">
@@ -54,6 +76,7 @@ export default function Appointment() {
           </div>
         </div>
       </div>
+
       <div className="KBP_container11">
         <div className="KBP_filters">
           <button className="KBP_filter-btn">FILTER</button>
@@ -84,26 +107,58 @@ export default function Appointment() {
 
         <div className="KBP_search-results">
           <h3>Search Result (433)</h3>
-          {doctors.map((doctor, index) => (
-            <div key={index} className="KBP_doctor-card">
-              <div className="KBP_doctor-info">
-                <div className="KBP_profile-pic">
-                  <img src={ladka} alt={doctor.name} className="KBP_doctor-img" />
-                </div>
-                <div>
-                  <h4>{doctor.name}</h4>
-                  <p>{doctor.specialty} | {doctor.experience}</p>
-                  <p><i className="fa fa-map-marker" aria-hidden="true"></i> {doctor.hospital}</p>
-                  <p><i className="fa fa-language" aria-hidden="true"></i> {doctor.languages}</p>
-                  <p><i className="fa fa-graduation-cap" aria-hidden="true"></i> {doctor.degrees}</p>
-                </div>
+
+          {/* Doctor 1 */}
+          <div className="KBP_doctor-card">
+            <div className="KBP_doctor-info">
+              <div className="KBP_profile-pic">
+                <img src={ladka} alt={doctor1.name} className="KBP_doctor-img" />
               </div>
-              <div className="KBP_appointment">
-                <p>{doctor.availability}</p>
-                <button className="KBP_book-btn">BOOK APPOINTMENT</button>
+              <div>
+                <h4>{doctor1.name}</h4>
+                <p>{doctor1.specialty} | {doctor1.experience}</p>
+                <p><i className="fa fa-map-marker" aria-hidden="true"></i> {doctor1.hospital}</p>
+                <p><i className="fa fa-language" aria-hidden="true"></i> {doctor1.languages}</p>
+                <p><i className="fa fa-graduation-cap" aria-hidden="true"></i> {doctor1.degrees}</p>
               </div>
             </div>
-          ))}
+            <div className="KBP_appointment">
+              <p>{doctor1.day}</p>
+              <p>{doctor1.time}</p>
+              <button
+                className="KBP_book-btn"
+                onClick={() => bookAppointment(doctor1)}
+              >
+                BOOK APPOINTMENT
+              </button>
+            </div>
+          </div>
+
+          {/* Doctor 2 */}
+          <div className="KBP_doctor-card">
+            <div className="KBP_doctor-info">
+              <div className="KBP_profile-pic">
+                <img src={ladka} alt={doctor2.name} className="KBP_doctor-img" />
+              </div>
+              <div>
+                <h4>{doctor2.name}</h4>
+                <p>{doctor2.specialty} | {doctor2.experience}</p>
+                <p><i className="fa fa-map-marker" aria-hidden="true"></i> {doctor2.hospital}</p>
+                <p><i className="fa fa-language" aria-hidden="true"></i> {doctor2.languages}</p>
+                <p><i className="fa fa-graduation-cap" aria-hidden="true"></i> {doctor2.degrees}</p>
+              </div>
+            </div>
+            <div className="KBP_appointment">
+              <p>{doctor2.day}</p>
+              <p>{doctor2.time}</p>
+              <button
+                className="KBP_book-btn"
+                onClick={() => bookAppointment(doctor2)}
+              >
+                BOOK APPOINTMENT
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="KBP_help-section">
@@ -113,5 +168,5 @@ export default function Appointment() {
         </div>
       </div>
     </div>
-  )
+  );
 }
