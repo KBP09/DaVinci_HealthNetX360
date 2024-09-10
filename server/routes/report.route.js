@@ -18,7 +18,7 @@ const upload = multer({ storage });
 
 // Define routes for file upload and predictions
 router.post('/predict_chest', upload.single('file'), chest);  
-router.post('/predict_tumor', upload.single('file'), tumor);  // Ensure 'file' matches the field name
-router.post('/predict_fracture', upload.single('file'), fracture);  // Ensure 'file' matches the field name
+router.post('/predict_tumor', upload.single('file'), tumor);  
+router.post('/predict_fracture', upload.single('file'), fracture);  
 
 export default router;

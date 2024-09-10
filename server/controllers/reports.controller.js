@@ -61,7 +61,6 @@ const predictChest = async (imagePath) => {
         });
 
         const data = await response.json();
-        console.log(data);
         return data.result;
     } catch (error) {
         return error.message;
