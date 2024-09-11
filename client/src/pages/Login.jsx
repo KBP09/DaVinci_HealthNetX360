@@ -24,7 +24,7 @@ export default function Login() {
             });
             
             if (res.data === "exist") {
-                navigate("/"); 
+                navigate("/dashboard"); 
             } else if (res.data === "not exist") {
                 alert("User does not exist, please sign up");
             }

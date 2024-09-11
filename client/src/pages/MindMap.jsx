@@ -17,7 +17,7 @@ const MindMap = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://mentalextensionbackend.onrender.com/analyzeRecentData');
+            const response = await fetch('https://localhost:6000/analyzeRecentData');
             const res= await response.json();
             console.log(res);
             console.log('Data:', res);
