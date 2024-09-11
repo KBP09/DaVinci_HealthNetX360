@@ -337,7 +337,7 @@ const LandingPage = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to='/login'> Get started </Link>
+            <Link to='/login'> Log In </Link>
           </motion.button>
           <motion.button
             className="border border-gray-300 text-gray-700 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors"

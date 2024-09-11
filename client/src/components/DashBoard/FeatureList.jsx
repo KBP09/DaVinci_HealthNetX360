@@ -6,10 +6,10 @@ const FeaturesList = () => {
 
     
     const features = [
-        { id: 1, name: 'Report Analysis', description: 'Analyze reports and extract insights.', path: '/reportanalysis' },
-        { id: 2, name: 'Content Tracking', description: 'Track content consumption and generate insights.', path: '/track-content' },
         { id: 3, name: 'Mental Health Exercises', description: 'Access exercises to improve your mental health.', path: '/mental-health-exercises' },
         { id: 4, name: 'Lifestyle Recommendations', description: 'Improve your lifestyle with expert recommendations.', path: '/lifestyle-recommendations' },
+        { id: 1, name: 'Report Analysis', description: 'Analyze reports and extract insights.', path: '/reportanalysis' },
+        { id: 2, name: 'Content Tracking', description: 'Track content consumption and generate insights.', path: '/track-content' },
     ];
 
     const handleFeatureClick = (path) => {

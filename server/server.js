@@ -12,7 +12,6 @@ const { Collection, Appointment } = Models;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configure Multer for file upload
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -95,7 +94,7 @@ app.get('/appointments', async (req, res) => {
         res.status(500).json("error");
     }
 });
-// Serve static files
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
